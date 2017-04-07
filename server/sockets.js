@@ -47,8 +47,7 @@ const setupSockets = (ioServer) => {
       const x = data.pos.x;
       const y = data.pos.y;
       const c = {};
-      const color = users[data.hash].color;
-      c[time] = new Circle(x, y, time, color);
+      c[time] = new Circle(x, y, time, users[data.hash].color);
       physics.addCircle(c[time]);
       io.sockets.in('room1').emit('addCircle', c[time]);
     });
