@@ -51,9 +51,6 @@ const update = () => {
     else if (circleList[i].destY + circleList[i].rad < 10) {
       circleList[i].destY = 600 - circleList[i].rad;
     }
-    if (circleList[i].destX + circleList[i].rad > 800 && circleList[i].destY + circleList[i].rad > 600) {
-      
-    }
     // Now we need to make them attract each other
     // so first, we'll check the distance between
     // them and compare it to the minDist we have
