@@ -1,0 +1,37 @@
+{
+  "name": "websocket-app2",
+  "version": "1.0.0",
+  "description": "A multi-user web application",
+  "main": "./server/app.js",
+  "scripts": {
+    "build": "babel ./client --out-file ./hosted/compiled.js",
+    "watch": "babel --watch ./client --out-file ./hosted/compiled.js",
+    "nodemon": "nodemon --watch ./server ./server/app.js",
+    "start": "node ./server/app.js",
+    "pretest": "eslint ./server --fix",
+    "test": "echo \"Tests complete\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thereseh/Websockets-App2.git"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.4.8",
+    "xxhashjs": "^0.2.1"
+  },
+  "author": "Therese Henriksson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thereseh/Websockets-App2/issues"
+  },
+  "homepage": "https://github.com/thereseh/Websockets-App2#readme",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-env": "^1.1.8",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "nodemon": "^1.11.0"
+  }
+}
