@@ -25,7 +25,6 @@ const update = (data) => {
 const updateC = (data) => {
   circles = [];
   lines = [];
-  let c = data.circles;
   // console.dir(data);
   // console.dir(data.circles);
   // console.dir(data.lines);

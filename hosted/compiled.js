@@ -79,7 +79,7 @@ var mouseUpHandler = function mouseUpHandler(e) {
   var user = users[hash];
 
   var pos = getMousePos(mouse, canvas);
-  socket.emit('addCircle', pos);
+  socket.emit('addCircle', { pos: pos, hash: hash });
 };
 
 //handler for key up events
@@ -140,7 +140,6 @@ var update = function update(data) {
 var updateC = function updateC(data) {
   circles = [];
   lines = [];
-  var c = data.circles;
   // console.dir(data);
   // console.dir(data.circles);
   // console.dir(data.lines);

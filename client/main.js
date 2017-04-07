@@ -26,7 +26,7 @@ const mouseUpHandler = (e) => {
   const user = users[hash];
   
   let pos = getMousePos(mouse, canvas);
-  socket.emit('addCircle', pos);  
+  socket.emit('addCircle', { pos, hash });  
 };
 
 //handler for key up events
