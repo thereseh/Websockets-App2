@@ -17,8 +17,10 @@ const distance = (i, j) => {
     const y1 = circleList[i].destY;
     const x2 = circleList[j].destX;
     const y2 = circleList[j].destY;
-    line.moveTo = { x1, y1 };
-    line.lineTo = { x2, y2 };
+    const c1 = circleList[i].color;
+    const c2 = circleList[j].color;
+    line.moveTo = { x1, y1, c1 };
+    line.lineTo = { x2, y2, c2 };
     line.alpha = ((1.2 - dist) / 90);
     lines.push(line);
     // Some acceleration for the partcles
@@ -41,13 +43,16 @@ const update = () => {
     // We don't want to make the particles leave the
     // area, so just change their position when they
     // touch the walls of the window
-    if (circleList[i].destX + circleList[i].rad > 800) circleList[i].destX = circleList[i].radius;
-    else if (circleList[i].destX - circleList[i].rad < 0) {
+    if (circleList[i].destX + circleList[i].rad > 800) circleList[i].destX = circleList[i].rad;
+    else if (circleList[i].destX + circleList[i].rad < 10) {
       circleList[i].destX = 800 - circleList[i].rad;
     }
     if (circleList[i].destY + circleList[i].rad > 600) circleList[i].destY = circleList[i].rad;
-    else if (circleList[i].destY - circleList[i].rad < 0) {
+    else if (circleList[i].destY + circleList[i].rad < 10) {
       circleList[i].destY = 600 - circleList[i].rad;
+    }
+    if (circleList[i].destX + circleList[i].rad > 800 && circleList[i].destY + circleList[i].rad > 600) {
+      
     }
     // Now we need to make them attract each other
     // so first, we'll check the distance between

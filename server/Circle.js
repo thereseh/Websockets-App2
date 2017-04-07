@@ -1,5 +1,5 @@
 class Circle {
-  constructor(x, y, time, color) {
+  constructor(x, y, time, color, hash) {
     this.created = time;
     this.lastUpdate = new Date().getTime();
     this.x = 0;
@@ -16,6 +16,7 @@ class Circle {
     this.velocityY = 0;
     this.velocityX = 0;
     this.color = color;
+    this.user = hash;
   }
 }
 

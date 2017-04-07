@@ -39,7 +39,10 @@ const redraw = (time) => {
   }
   for(let i = 0; i < lines.length; i++) {
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(0,0,0,"+ (1.2-lines[i].alpha) +")";
+    let grad= ctx.createLinearGradient(lines[i].moveTo.x1, lines[i].moveTo.y1, lines[i].lineTo.x2, lines[i].lineTo.y2);
+    grad.addColorStop(0, lines[i].moveTo.c1);
+    grad.addColorStop(1, lines[i].lineTo.c2);
+    ctx.strokeStyle = grad;
     ctx.moveTo(lines[i].moveTo.x1, lines[i].moveTo.y1);
     ctx.lineTo(lines[i].lineTo.x2, lines[i].lineTo.y2);
     ctx.stroke();

@@ -41,7 +41,10 @@ var redraw = function redraw(time) {
   }
   for (var _i2 = 0; _i2 < lines.length; _i2++) {
     ctx.beginPath();
-    ctx.strokeStyle = "rgba(0,0,0," + (1.2 - lines[_i2].alpha) + ")";
+    var grad = ctx.createLinearGradient(lines[_i2].moveTo.x1, lines[_i2].moveTo.y1, lines[_i2].lineTo.x2, lines[_i2].lineTo.y2);
+    grad.addColorStop(0, lines[_i2].moveTo.c1);
+    grad.addColorStop(1, lines[_i2].lineTo.c2);
+    ctx.strokeStyle = grad;
     ctx.moveTo(lines[_i2].moveTo.x1, lines[_i2].moveTo.y1);
     ctx.lineTo(lines[_i2].lineTo.x2, lines[_i2].lineTo.y2);
     ctx.stroke();
