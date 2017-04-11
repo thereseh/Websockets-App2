@@ -60,7 +60,7 @@ const connectSocket = (e) => {
   socket.on('addCircle', addCircle);
   socket.on('updateCircle', updateC);
   socket.on('collision', collision);
-  socket.on('changeColor', changColor);
+  socket.on('changeColor', changeColor);
 };
 
 const init = () => {
