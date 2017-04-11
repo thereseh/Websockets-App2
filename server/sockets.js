@@ -1,17 +1,20 @@
 // fast hashing library
 const xxh = require('xxhashjs');
 const User = require('./User.js');
-const Circle = require('./Circle.js');
 const physics = require('./physics.js');
 
 const users = {};
-const colors = ['#4ECDC4', '#FF6B6B', '#313638', '#FFE66D'];
+const colors = ['#4ECDC4', '#FF6B6B', '#313638', '#FFE66D', '#AA80FF', '#ADEBAD', '#FFCC66',
+  '#FF3399', '#0066CC'];
 // our socketio instance
 let io;
 // function to setup our socket server
 
-const updateCircles = (circle, line) => {
-  io.sockets.in('room1').emit('updateCircle', { circles: circle, lines: line });
+const updateCircles = (circle, line, particle) => {
+  io.sockets.in('room1').emit('updateCircle', { circles: circle, lines: line, particles: particle });
+};
+const collision = (p) => {
+  io.sockets.in('room1').emit('collision', { particle: p });
 };
 
 const setupSockets = (ioServer) => {
@@ -21,13 +24,11 @@ const setupSockets = (ioServer) => {
   // on socket connections
   io.on('connection', (sock) => {
     const socket = sock;
-
     socket.join('room1'); // join user to our socket room
 
     // create a unique id
     const hash = xxh.h32(`${socket.id}${new Date().getTime()}`, 0xCAFEBABE).toString(16);
     const color = Math.floor(Math.random() * colors.length);
-    console.log(colors[color]);
     // create a new character and store it by its unique id
     users[hash] = new User(hash, colors[color]);
 
@@ -36,6 +37,9 @@ const setupSockets = (ioServer) => {
 
     // emit a joined event to the user and send them their character
     socket.emit('joined', users[hash]);
+    socket.on('join', (data) => {
+      users[data.hash].name = data.name;
+    });
     // when this user sends the server a movement update
     socket.on('movementUpdate', (data) => {
       users[socket.hash] = data;
@@ -43,13 +47,13 @@ const setupSockets = (ioServer) => {
     });
 
     socket.on('addCircle', (data) => {
-      const time = new Date().getTime();
-      const x = data.pos.x;
-      const y = data.pos.y;
-      const c = {};
-      c[time] = new Circle(x, y, time, users[data.hash].color, data.hash);
-      physics.addCircle(c[time]);
-      io.sockets.in('room1').emit('addCircle', c[time]);
+      const c = users[data.hash].color;
+      physics.addCircle(data, c);
+      io.sockets.in('room1').emit('addCircle', data);
+    });
+
+    socket.on('changeColor', (data) => {
+      users[data.hash].color = data.color;
     });
 
     // when the user disconnects
@@ -65,3 +69,5 @@ const setupSockets = (ioServer) => {
 
 module.exports.setupSockets = setupSockets;
 module.exports.updateCircles = updateCircles;
+module.exports.collision = collision;
+

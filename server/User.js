@@ -8,12 +8,11 @@ class User {
     this.prevY = 0;
     this.destX = 0;
     this.destY = 0;
-    this.height = 100;
-    this.width = 100;
     this.alpha = 0.5;
     this.direction = 0;
-    this.rad = 5;
+    this.rad = 6;
     this.color = color;
+    this.name = '';
   }
 }
 

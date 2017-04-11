@@ -3,18 +3,22 @@
 <head>
     <title>Gravity</title>
     <meta charset="utf-8"/>
+    <link rel='stylesheet' type="text/css" href='/assets/bootstrap/css/bootstrap.min.css' />
     <style>
+      @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
       html, body {
         width: 100%;
         height: 100%;
-        margin: 0;
-        padding:0;
+        font-family: 'Roboto', sans-serif;
       }
       
       canvas {
-        margin: 10px;
         background: white;
-        border: 1px solid black;
+        border: 1px solid #f2f2f2;
+        box-shadow: 2px 2px 1px #f2f2f2;
+        float: none;
+        margin: 20px;
+        display: inline;
       }
       
       p {
@@ -26,11 +30,86 @@
       .hidden {
         display: none;
       }
+      .can {
+        text-align: center;
+        display: none;
+      }
+      .row {
+        padding-top: 10px;
+        width: 400px;
+        margin:auto;!important
+        float: none;!important
+        text-align: auto;!important
+        align-content: center;!important
+      }
+      .col-lg-6 {
+        width: 100%;
+        margin:auto;!important
+        text-align: center;!important
+        align-content: center;!important
+        float: none;!important
+      }
+      #indexh1 {
+        padding-top: 30px;
+        text-align: center;
+        font-size: 50px;
+      }
+      
+      .dropdown-menu {
+        width: 50%;!important
+      }
+      #colorDrop > li > a {
+        height: 30px;
+      }
+      #colorDrop > li > a:hover {
+        background-color: white;
+      }
+      .btn-group {
+        margin: 20px;
+        margin-right: 60px;
+        vertical-align: top;
+        width: 20px;
+        float: left;
+      }
+      #custom {
+        padding: 0;
+      }
     </style>
     <script src="/socket.io/socket.io.js"></script>
 	<script src="/assets/compiled.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <canvas id="canvas" height="600" width="800">Please use an HTML 5 browser</canvas>
+  <div class="login">
+  <h1 id="indexh1">Particle Web Matrix</h1>
+  <div class="row">
+  <div class="col-lg-6">
+    <div class="input-group" id="inputUser">
+      <input type="text" id="username" class="form-control" placeholder="Username...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" id="connect" type="button">Connect!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+  </div>
+  <div class="can">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" id="dropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Change Color <span class="caret"></span></button>
+        <ul class="dropdown-menu" id="colorDrop">
+          <li><a href="#" data-value="#4ECDC4" style="background-color:#4ECDC4"></a></li>
+          <li><a href="#" data-value="#FF6B6B" style="background-color:#FF6B6B"></a></li>
+          <li><a href="#" data-value="#313638" style="background-color:#313638"></a></li>
+          <li><a href="#" data-value="#FFE66D" style="background-color:#FFE66D"></a></li>
+          <li><a href="#" data-value="#AA80FF" style="background-color:#AA80FF"></a></li>
+          <li><a href="#" data-value="#ADEBAD" style="background-color:#ADEBAD"></a></li>
+          <li><a href="#" data-value="#FFCC66" style="background-color:#FFCC66"></a></li>
+           <li><a href="#" data-value="#FF3399" style="background-color:#FF3399"></a></li>
+           <li><a href="#" data-value="#0066CC" style="background-color:#0066CC"></a></li>
+        </ul>
+          </div><!-- /btn-group -->
+    <canvas id="canvas" height="500" width="950">Please use an HTML 5 browser</canvas>
+  </div>
 </body>
 </html>

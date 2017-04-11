@@ -4,8 +4,8 @@ const lerp = (v0, v1, alpha) => {
 
 const redraw = (time) => {
   updatePosition();
-
-  ctx.clearRect(0, 0, 800, 600);
+  ctx.globalAlpha = 1;
+  ctx.clearRect(0, 0, 950, 500);
 
   const keys = Object.keys(users);
 
@@ -23,6 +23,15 @@ const redraw = (time) => {
     ctx.arc(user.x, user.y, user.rad, 0, 2 * Math.PI, false);
     ctx.fillStyle = user.color;
     ctx.fill();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.arc(user.x, user.y, user.rad+3, 0, 2 * Math.PI, false);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.font = "30px";
+    ctx.textAlign = 'center';
+    ctx.fillText(user.name,user.x, user.y-15);
   }
   
   for(let i = 0; i < circles.length; i++) {
@@ -47,6 +56,21 @@ const redraw = (time) => {
     ctx.lineTo(lines[i].lineTo.x2, lines[i].lineTo.y2);
     ctx.stroke();
     ctx.closePath();
+  }
+  
+  for(let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    if(particles[i].alpha < 1) particles[i].alpha += 0.1;
+
+    //circles[i].x = lerp(circles[i].prevX, circles[i].destX, circles[i].alpha);
+    //circles[i].y = lerp(circles[i].prevY, circles[i].destY, circles[i].alpha);
+    //ctx.save();
+    ctx.globalAlpha = particles[i].globalAlpha;
+    ctx.beginPath();
+    ctx.arc(particles[i].destX, particles[i].destY, particles[i].rad, 0, 2 * Math.PI, false);
+    ctx.fillStyle = particles[i].color;
+    ctx.fill();
+    //ctx.restore();
   }
 
   animationFrame = requestAnimationFrame(redraw);

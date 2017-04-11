@@ -25,12 +25,15 @@ const update = (data) => {
 const updateC = (data) => {
   circles = [];
   lines = [];
-  // console.dir(data);
-  // console.dir(data.circles);
-  // console.dir(data.lines);
-  // console.log(`length: ${data.circles.length}`);
+  particles = [];
   circles = data.circles.slice();
   lines = data.lines.slice();
+  particles = data.particles.slice();
+};
+
+const collision = (data) => {
+  particles = [];
+  particles = data.particle.slice(); 
 };
 
 //function to remove a character from our character list
@@ -46,6 +49,9 @@ const setUser = (data) => {
   hash = data.hash; //set this user's hash to the unique one they received
   users[hash] = data; //set the character by their hash
   
+  let name = document.querySelector("#username").value;
+  users[hash].name = name;
+  socket.emit('join', { name: name, hash: hash });
   requestAnimationFrame(redraw); //start animating
 };
 
