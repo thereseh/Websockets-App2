@@ -58,18 +58,3 @@ const setUser = (data) => {
 const addCircle = (data) => {
   circles.push(data);
 }
-
-//update this user's positions based on keyboard input
-const updatePosition = () => {
-  const user = users[hash];
-
-  //move the last x/y to our previous x/y variables
-  user.prevX = user.x;
-  user.prevY = user.y;
-  
-  //reset this character's alpha so they are always smoothly animating
-  user.alpha = 0.5;
-
-  //send the updated movement request to the server to validate the movement.
-  socket.emit('movementUpdate', user);
-};

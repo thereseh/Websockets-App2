@@ -5,12 +5,10 @@ var lerp = function lerp(v0, v1, alpha) {
 };
 
 var redraw = function redraw(time) {
-  updatePosition();
   ctx.globalAlpha = 1;
   ctx.clearRect(0, 0, 950, 500);
 
   var keys = Object.keys(users);
-
   for (var i = 0; i < keys.length; i++) {
 
     var user = users[keys[i]];
@@ -106,9 +104,12 @@ var mouseUpHandler = function mouseUpHandler(e) {
   if (loggedIn) {
     var mouse = e;
     var user = users[hash];
-
     var pos = getMousePos(mouse, canvas);
-    socket.emit('addCircle', { pos: pos, hash: hash });
+    if (pos.x > 0 && pos.x < 950 && pos.y > 0 && pos.y < 500) {
+      if (user) {
+        socket.emit('addCircle', { pos: pos, hash: hash });
+      }
+    }
   }
 };
 
@@ -120,8 +121,12 @@ var mouseMoveHandler = function mouseMoveHandler(e) {
   var pos = getMousePos(mouse, canvas);
   if (pos.x > 0 && pos.x < 950 && pos.y > 0 && pos.y < 500) {
     if (user) {
+      user.prevX = user.x;
+      user.prevY = user.y;
       user.destX = pos.x;
       user.destY = pos.y;
+      user.alpha = 0.5;
+      socket.emit('movementUpdate', user);
     }
   }
 };
@@ -158,12 +163,10 @@ var init = function init() {
     socket.emit('changeColor', { hash: hash, color: color });
     users[hash].color = color;
   });
-
-  console.log(loggedIn);
 };
 
 window.onload = init;
-'use strict';
+"use strict";
 
 //when we receive a character update
 var update = function update(data) {
@@ -174,9 +177,9 @@ var update = function update(data) {
   }
 
   //if we received an old message, just drop it
-  if (users[data.hash].lastUpdate >= data.lastUpdate) {
-    return;
-  }
+  //if(users[data.hash].lastUpdate >= data.lastUpdate) {
+  //  return;
+  //}
 
   //grab the character based on the character id we received
   var user = users[data.hash];
@@ -224,19 +227,4 @@ var setUser = function setUser(data) {
 
 var addCircle = function addCircle(data) {
   circles.push(data);
-};
-
-//update this user's positions based on keyboard input
-var updatePosition = function updatePosition() {
-  var user = users[hash];
-
-  //move the last x/y to our previous x/y variables
-  user.prevX = user.x;
-  user.prevY = user.y;
-
-  //reset this character's alpha so they are always smoothly animating
-  user.alpha = 0.5;
-
-  //send the updated movement request to the server to validate the movement.
-  socket.emit('movementUpdate', user);
 };

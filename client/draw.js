@@ -3,12 +3,10 @@ const lerp = (v0, v1, alpha) => {
 };
 
 const redraw = (time) => {
-  updatePosition();
   ctx.globalAlpha = 1;
   ctx.clearRect(0, 0, 950, 500);
 
   const keys = Object.keys(users);
-
   for(let i = 0; i < keys.length; i++) {
 
     const user = users[keys[i]];

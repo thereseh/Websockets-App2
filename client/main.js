@@ -25,11 +25,12 @@ const mouseUpHandler = (e) => {
   if (loggedIn) {
   let mouse = e;
   const user = users[hash];
+  let pos = getMousePos(mouse, canvas);
   if (pos.x > 0 && pos.x < 950 && pos.y > 0 && pos.y < 500) {
     if (user) {
-      let pos = getMousePos(mouse, canvas);
       socket.emit('addCircle', { pos, hash });
     }
+  }
   }
 };
 
@@ -41,8 +42,12 @@ const mouseMoveHandler = (e) => {
   let pos = getMousePos(mouse, canvas);
   if (pos.x > 0 && pos.x < 950 && pos.y > 0 && pos.y < 500) {
     if (user) {
+    user.prevX = user.x;
+    user.prevY = user.y;
     user.destX = pos.x;
     user.destY = pos.y;
+    user.alpha = 0.5;
+    socket.emit('movementUpdate', user);
     }
   }
 };
@@ -55,7 +60,7 @@ const connectSocket = (e) => {
   socket.on('addCircle', addCircle);
   socket.on('updateCircle', updateC);
   socket.on('collision', collision);
-}
+};
 
 const init = () => {
   canvas = document.querySelector('#canvas');
@@ -79,8 +84,6 @@ const init = () => {
     socket.emit('changeColor', { hash, color }); 
     users[hash].color = color;
   });
-  
-  console.log(loggedIn);
 };
 
 window.onload = init;
