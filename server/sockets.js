@@ -54,6 +54,7 @@ const setupSockets = (ioServer) => {
 
     socket.on('changeColor', (data) => {
       users[data.hash].color = data.color;
+      io.sockets.in('room1').emit('changeColor', data);
     });
 
     // when the user disconnects

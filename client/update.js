@@ -57,4 +57,8 @@ const setUser = (data) => {
 
 const addCircle = (data) => {
   circles.push(data);
+};
+
+const changeColor = (data) => {
+  users[data.hash].color = data.color;
 }
