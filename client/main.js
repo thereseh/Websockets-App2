@@ -80,10 +80,8 @@ const init = () => {
   
   const color = document.querySelector('#colorDrop');
   color.addEventListener('click', (e) => {
-    console.log('change');
     let color = e.target.attributes[1].value;
     socket.emit('changeColor', { hash, color }); 
-    users[hash].color = color;
   });
 };
 

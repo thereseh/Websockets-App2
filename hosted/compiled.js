@@ -139,6 +139,7 @@ var connectSocket = function connectSocket(e) {
   socket.on('addCircle', addCircle);
   socket.on('updateCircle', updateC);
   socket.on('collision', collision);
+  socket.on('changeColor', changeColor);
 };
 
 var init = function init() {
@@ -158,10 +159,8 @@ var init = function init() {
 
   var color = document.querySelector('#colorDrop');
   color.addEventListener('click', function (e) {
-    console.log('change');
     var color = e.target.attributes[1].value;
     socket.emit('changeColor', { hash: hash, color: color });
-    users[hash].color = color;
   });
 };
 
@@ -227,4 +226,9 @@ var setUser = function setUser(data) {
 
 var addCircle = function addCircle(data) {
   circles.push(data);
+};
+
+var changeColor = function changeColor(data) {
+  console.dir(data);
+  users[data.hash].color = data.color;
 };
