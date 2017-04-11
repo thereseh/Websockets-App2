@@ -25,9 +25,11 @@ const mouseUpHandler = (e) => {
   if (loggedIn) {
   let mouse = e;
   const user = users[hash];
-  
-  let pos = getMousePos(mouse, canvas);
-  socket.emit('addCircle', { pos, hash });
+  if (pos.x > 0 && pos.x < 950 && pos.y > 0 && pos.y < 500) {
+    if (user) {
+      let pos = getMousePos(mouse, canvas);
+      socket.emit('addCircle', { pos, hash });
+    }
   }
 };
 
