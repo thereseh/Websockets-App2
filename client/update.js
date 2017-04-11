@@ -7,9 +7,9 @@ const update = (data) => {
   }
 
   //if we received an old message, just drop it
-  if(users[data.hash].lastUpdate >= data.lastUpdate) {
-    return;
-  }
+  //if(users[data.hash].lastUpdate >= data.lastUpdate) {
+  //  return;
+  //}
 
   //grab the character based on the character id we received
   const user = users[data.hash];
