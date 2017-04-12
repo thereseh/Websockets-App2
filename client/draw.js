@@ -24,7 +24,7 @@ const redraw = (time) => {
     ctx.closePath();
     ctx.beginPath();
     ctx.strokeStyle = strokeColor;
-    ctx.arc(user.x, user.y, user.rad+3, 0, 2 * Math.PI, false);
+    ctx.arc(user.x, user.y, user.rad+4, 0, 2 * Math.PI, false);
     ctx.stroke();
     ctx.closePath();
     ctx.font = "30px";
