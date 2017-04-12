@@ -8,6 +8,7 @@ let users = {}; //character list
 const circles = [];
 const particles = [];
 const lines = [];
+let strokeColor = "black";
 
 const getMousePos = (e, can) => {
     let rect = canvas.getBoundingClientRect();
@@ -61,6 +62,7 @@ const connectSocket = (e) => {
   socket.on('updateCircle', updateC);
   socket.on('collision', collision);
   socket.on('changeColor', changeColor);
+  socket.on('changeName', changeName);
 };
 
 const init = () => {
@@ -68,6 +70,11 @@ const init = () => {
   ctx = canvas.getContext('2d');
 
   const connect = document.querySelector("#connect");
+  const change = document.querySelector("#update");
+  const op1 = document.querySelector("#option1");
+  const op2 = document.querySelector("#option2");
+  const op3 = document.querySelector("#option3");
+
   document.body.addEventListener('mouseup', mouseUpHandler);
   document.body.addEventListener('mousemove', mouseMoveHandler);
   connect.addEventListener('click', () => {
@@ -77,7 +84,23 @@ const init = () => {
     document.querySelector('.can').style.display = "block";
     document.querySelector('.login').style.display = "none";
   }); 
-  
+  change.addEventListener('click', () => {
+    let name = document.querySelector("#newUsername").value;
+      socket.emit('changeName', { hash: hash, name: name });
+  });
+  op1.addEventListener('click', () => {
+    console.log('click');
+    canvas.style.backgroundColor = "black";
+    strokeColor = "white";
+  });
+  op2.addEventListener('click', () => {
+    canvas.style.backgroundColor = "white";
+    strokeColor = "black";
+  });
+  op3.addEventListener('click', () => {
+    canvas.style.backgroundColor = "#8c8c8c";
+    strokeColor = "white";
+  });
   const color = document.querySelector('#colorDrop');
   color.addEventListener('click', (e) => {
     let color = e.target.attributes[1].value;

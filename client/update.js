@@ -63,3 +63,8 @@ const changeColor = (data) => {
   console.dir(data);
   users[data.hash].color = data.color;
 };
+
+const changeName = (data) => {
+  console.dir(data);
+  users[data.hash].name = data.name;
+};

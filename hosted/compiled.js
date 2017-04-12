@@ -25,7 +25,7 @@ var redraw = function redraw(time) {
     ctx.fill();
     ctx.closePath();
     ctx.beginPath();
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = strokeColor;
     ctx.arc(user.x, user.y, user.rad + 3, 0, 2 * Math.PI, false);
     ctx.stroke();
     ctx.closePath();
@@ -87,6 +87,7 @@ var users = {}; //character list
 var circles = [];
 var particles = [];
 var lines = [];
+var strokeColor = "black";
 
 var getMousePos = function getMousePos(e, can) {
   var rect = canvas.getBoundingClientRect();
@@ -140,6 +141,7 @@ var connectSocket = function connectSocket(e) {
   socket.on('updateCircle', updateC);
   socket.on('collision', collision);
   socket.on('changeColor', changeColor);
+  socket.on('changeName', changeName);
 };
 
 var init = function init() {
@@ -147,6 +149,11 @@ var init = function init() {
   ctx = canvas.getContext('2d');
 
   var connect = document.querySelector("#connect");
+  var change = document.querySelector("#update");
+  var op1 = document.querySelector("#option1");
+  var op2 = document.querySelector("#option2");
+  var op3 = document.querySelector("#option3");
+
   document.body.addEventListener('mouseup', mouseUpHandler);
   document.body.addEventListener('mousemove', mouseMoveHandler);
   connect.addEventListener('click', function () {
@@ -156,7 +163,23 @@ var init = function init() {
     document.querySelector('.can').style.display = "block";
     document.querySelector('.login').style.display = "none";
   });
-
+  change.addEventListener('click', function () {
+    var name = document.querySelector("#newUsername").value;
+    socket.emit('changeName', { hash: hash, name: name });
+  });
+  op1.addEventListener('click', function () {
+    console.log('click');
+    canvas.style.backgroundColor = "black";
+    strokeColor = "white";
+  });
+  op2.addEventListener('click', function () {
+    canvas.style.backgroundColor = "white";
+    strokeColor = "black";
+  });
+  op3.addEventListener('click', function () {
+    canvas.style.backgroundColor = "#8c8c8c";
+    strokeColor = "white";
+  });
   var color = document.querySelector('#colorDrop');
   color.addEventListener('click', function (e) {
     var color = e.target.attributes[1].value;
@@ -231,4 +254,9 @@ var addCircle = function addCircle(data) {
 var changeColor = function changeColor(data) {
   console.dir(data);
   users[data.hash].color = data.color;
+};
+
+var changeName = function changeName(data) {
+  console.dir(data);
+  users[data.hash].name = data.name;
 };

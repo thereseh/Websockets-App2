@@ -13,7 +13,6 @@
       }
       
       canvas {
-        background: white;
         border: 1px solid #f2f2f2;
         box-shadow: 2px 2px 1px #f2f2f2;
         float: none;
@@ -31,6 +30,7 @@
         display: none;
       }
       .can {
+        padding-top: 5%;
         text-align: center;
         display: none;
       }
@@ -74,6 +74,16 @@
       #custom {
         padding: 0;
       }
+      
+      .btn span.glyphicon {    			
+	   opacity: 0;				
+      }
+      .btn.active span.glyphicon {
+	   opacity: 1;				
+      }
+      span.icon-black {
+        color: black;
+      }
     </style>
     <script src="/socket.io/socket.io.js"></script>
 	<script src="/assets/compiled.js"> </script>
@@ -95,6 +105,33 @@
 </div><!-- /.row -->
   </div>
   <div class="can">
+     <div class="row">
+  <div class="col-lg-6">
+    <div class="input-group" id="inputUser">
+      <input type="text" id="newUsername" class="form-control" placeholder="Change username...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" id="update" type="button">Change!</button>
+      </span>
+    </div><!-- /input-group -->
+      <h3>Canvas Styles: </h3>
+     <div class="btn-group2" data-toggle="buttons">
+       <label class="btn btn-primary active" id="option2" style="background-color:#FFFFFF">
+		<input type="radio" name="options" id="option2" autocomplete="off">
+		<span class="glyphicon glyphicon-ok icon-black"></span>
+		</label>
+       
+		<label class="btn btn-primary" id="option1" style="background-color:#000000">
+		<input type="radio" name="options" id="option1" autocomplete="off" chacked>
+		<span class="glyphicon glyphicon-ok" ></span>
+		</label>
+
+		<label class="btn btn-primary" id="option3" style="background-color:#8c8c8c">
+		<input type="radio" name="options" id="option3" autocomplete="off">
+		<span class="glyphicon glyphicon-ok"></span>
+		</label>
+    </div>
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" id="dropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Change Color <span class="caret"></span></button>
         <ul class="dropdown-menu" id="colorDrop">
