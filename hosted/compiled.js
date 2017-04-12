@@ -182,6 +182,7 @@ var init = function init() {
   });
   var color = document.querySelector('#colorDrop');
   color.addEventListener('click', function (e) {
+    e.preventDefault();
     var color = e.target.attributes[1].value;
     socket.emit('changeColor', { hash: hash, color: color });
   });

@@ -103,6 +103,7 @@ const init = () => {
   });
   const color = document.querySelector('#colorDrop');
   color.addEventListener('click', (e) => {
+    e.preventDefault();
     let color = e.target.attributes[1].value;
     socket.emit('changeColor', { hash, color }); 
   });
