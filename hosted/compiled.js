@@ -126,7 +126,8 @@ var mouseMoveHandler = function mouseMoveHandler(e) {
       user.prevY = user.y;
       user.destX = pos.x;
       user.destY = pos.y;
-      user.alpha = 0.5;
+      user.lastUpdate = new Date().getTime();
+      user.alpha = 0.3;
       socket.emit('movementUpdate', user);
     }
   }
@@ -199,9 +200,13 @@ var update = function update(data) {
   }
 
   //if we received an old message, just drop it
-  //if(users[data.hash].lastUpdate >= data.lastUpdate) {
-  //  return;
-  //}
+  if (users[data.hash].lastUpdate >= data.lastUpdate) {
+    return;
+  }
+
+  if (data.hash === hash) {
+    return;
+  }
 
   //grab the character based on the character id we received
   var user = users[data.hash];
@@ -211,7 +216,7 @@ var update = function update(data) {
   user.prevY = data.prevY;
   user.destX = data.destX;
   user.destY = data.destY;
-  user.alpha = 0.5;
+  user.alpha = 0.3;
 };
 
 var updateC = function updateC(data) {
