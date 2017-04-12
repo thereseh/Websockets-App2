@@ -89,7 +89,6 @@ const init = () => {
       socket.emit('changeName', { hash: hash, name: name });
   });
   op1.addEventListener('click', () => {
-    console.log('click');
     canvas.style.backgroundColor = "black";
     strokeColor = "white";
   });

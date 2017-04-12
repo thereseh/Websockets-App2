@@ -56,24 +56,40 @@
       }
       
       .dropdown-menu {
-        min-width: 50px;
+        min-width: 40px;
         text-align: center;
         float: right;
-        left: 45%;
+        left: 15px;
       }
       #dropDown {
         margin: 0 auto;
       }
       #colorDrop {
-        padding: 5px 0 5px 0;
+        padding: 5px 5px 1px 5px;
+         -webkit-column-count:2;
+        -webkit-column-gap: 0;
+        -webkit-column-fill: auto;
+        -moz-column-count: 2;
+        -moz-column-gap: 0;
+        -moz-column-fill: auto;
+        column-count: 2;
+        column-gap: 0;
+        column-fill:auto;
       }
       #colorDrop > li {
         align-content: center;
         text-align: center;
         margin: 0 auto;
-        padding: 0;
+        padding: 0 0 5px 0;
         vertical-align:middle;
-        display:flex;
+        display: inline-block;
+        -webkit-column-break-inside: avoid;
+        column-break-inside: avoid;
+        opacity: 1;
+        -webkit-transition: all .2s ease;
+        -moz-transition: all .2s ease;
+        -o-transition:all .2s ease;
+        cursor: pointer;
       }
       #colorDrop > li > a {
         align-content: center;
@@ -87,7 +103,7 @@
       }
       .btn-group {
         margin-top: 20px;
-        padding-right:30px;
+        margin-right: 30px;
         vertical-align: top;
         align-content: center;
         text-align: center;
@@ -95,7 +111,7 @@
       #custom {
         padding: 0;
       }
-      
+         
       .btn span.glyphicon {    			
 	   opacity: 0;				
       }
@@ -158,13 +174,18 @@
         <ul class="dropdown-menu" id="colorDrop">
           <li><a href="#" data-value="#4ECDC4" style="background-color:#4ECDC4"></a></li>
           <li><a href="#" data-value="#FF6B6B" style="background-color:#FF6B6B"></a></li>
+          <li><a href="#" data-value="#f2f2f2" style="background-color:#f2f2f2"></a></li>
           <li><a href="#" data-value="#313638" style="background-color:#313638"></a></li>
           <li><a href="#" data-value="#FFE66D" style="background-color:#FFE66D"></a></li>
           <li><a href="#" data-value="#AA80FF" style="background-color:#AA80FF"></a></li>
+          <li><a href="#" data-value="#800000" style="background-color:#800000"></a></li>
           <li><a href="#" data-value="#ADEBAD" style="background-color:#ADEBAD"></a></li>
           <li><a href="#" data-value="#FFCC66" style="background-color:#FFCC66"></a></li>
-           <li><a href="#" data-value="#FF3399" style="background-color:#FF3399"></a></li>
-           <li><a href="#" data-value="#0066CC" style="background-color:#0066CC"></a></li>
+          <li><a href="#" data-value="#FF3399" style="background-color:#FF3399"></a></li>
+          <li><a href="#" data-value="#0066CC" style="background-color:#0066CC"></a></li>
+          <li><a href="#" data-value="#33cc33" style="background-color:#33cc33"></a></li>
+          <li><a href="#" data-value="#ff9900" style="background-color:#ff9900"></a></li>
+          <li><a href="#" data-value="#9900cc" style="background-color:#9900cc"></a></li>
         </ul>
           </div><!-- /btn-group -->
     <canvas id="canvas" height="500" width="950">Please use an HTML 5 browser</canvas>

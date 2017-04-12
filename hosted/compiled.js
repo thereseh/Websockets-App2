@@ -168,7 +168,6 @@ var init = function init() {
     socket.emit('changeName', { hash: hash, name: name });
   });
   op1.addEventListener('click', function () {
-    console.log('click');
     canvas.style.backgroundColor = "black";
     strokeColor = "white";
   });
@@ -253,11 +252,9 @@ var addCircle = function addCircle(data) {
 };
 
 var changeColor = function changeColor(data) {
-  console.dir(data);
   users[data.hash].color = data.color;
 };
 
 var changeName = function changeName(data) {
-  console.dir(data);
   users[data.hash].name = data.name;
 };
