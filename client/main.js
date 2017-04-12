@@ -47,7 +47,7 @@ const mouseMoveHandler = (e) => {
     user.prevY = user.y;
     user.destX = pos.x;
     user.destY = pos.y;
-    user.alpha = 0.5;
+    user.alpha = 0.3;
     socket.emit('movementUpdate', user);
     }
   }
