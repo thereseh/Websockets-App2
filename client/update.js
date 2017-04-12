@@ -10,6 +10,10 @@ const update = (data) => {
   //if(users[data.hash].lastUpdate >= data.lastUpdate) {
   //  return;
   //}
+  
+  if(data.hash === hash) {
+    return;
+  }
 
   //grab the character based on the character id we received
   const user = users[data.hash];
