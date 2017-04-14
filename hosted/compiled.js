@@ -216,7 +216,7 @@ var update = function update(data) {
   user.prevY = data.prevY;
   user.destX = data.destX;
   user.destY = data.destY;
-  user.alpha = 0.3;
+  user.alpha = 0.25;
 };
 
 var updateC = function updateC(data) {

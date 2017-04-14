@@ -23,7 +23,7 @@ const update = (data) => {
   user.prevY = data.prevY;
   user.destX = data.destX;
   user.destY = data.destY;
-  user.alpha = 0.2;
+  user.alpha = 0.25;
 };
 
 const updateC = (data) => {
