@@ -148,6 +148,8 @@ const distance = (i, j) => {
 };
 
 // update the position of the circles
+// circle web matrix code is inspired from here:
+// http://cssdeck.com/labs/html5-canvas-particles-web-matrix
 const update = () => {
   for (let i = 0; i < circleList.length; i++) {
     // calculate the future position
