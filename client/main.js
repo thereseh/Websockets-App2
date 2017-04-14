@@ -5,9 +5,9 @@ let hash; //user's unique character id (from the server)
 let animationFrame; //our next animation frame function
 let loggedIn = false;
 let users = {}; //character list
-const circles = [];
-const particles = [];
-const lines = [];
+const circles = []; // circles
+const particles = []; // particles after collision
+const lines = []; // list of lines between circles
 let strokeColor = "black";
 
 const getMousePos = (e, can) => {
@@ -54,41 +54,52 @@ const mouseMoveHandler = (e) => {
   }
 };
 
+// When the user connects, set up socket pipelines
 const connectSocket = (e) => {
   socket = io.connect();
   socket.on('joined', setUser); //when user joins
   socket.on('updatedMovement', update); //when players move
   socket.on('left', removeUser); //when a user leaves
-  socket.on('addCircle', addCircle);
-  socket.on('updateCircle', updateC);
-  socket.on('collision', collision);
-  socket.on('changeColor', changeColor);
-  socket.on('changeName', changeName);
+  socket.on('updateCircle', updateC); // update circle list
+  socket.on('collision', collision); // if circles collides
+  socket.on('changeColor', changeColor); // when a user changes color
+  socket.on('changeName', changeName); // when a user changes name
 };
 
 const init = () => {
   canvas = document.querySelector('#canvas');
   ctx = canvas.getContext('2d');
 
+  // connect to socket
   const connect = document.querySelector("#connect");
+  // when changing name
   const change = document.querySelector("#update");
+  // for radio buttons
   const op1 = document.querySelector("#option1");
   const op2 = document.querySelector("#option2");
   const op3 = document.querySelector("#option3");
 
+  // mouse event handlers
   document.body.addEventListener('mouseup', mouseUpHandler);
   document.body.addEventListener('mousemove', mouseMoveHandler);
+  
+  // when connecting, display canvas and hide the log in objecs
   connect.addEventListener('click', () => {
     console.log('connect');
     loggedIn = true;
     connectSocket();
     document.querySelector('.can').style.display = "block";
     document.querySelector('.login').style.display = "none";
-  }); 
+  });
+  
+  // when changing the name, emit to server
   change.addEventListener('click', () => {
     let name = document.querySelector("#newUsername").value;
       socket.emit('changeName', { hash: hash, name: name });
   });
+  
+  // when changing the background color
+  // also change the strokecolor of the surrounding cirlce of the user
   op1.addEventListener('click', () => {
     canvas.style.backgroundColor = "black";
     strokeColor = "white";
@@ -101,6 +112,9 @@ const init = () => {
     canvas.style.backgroundColor = "#8c8c8c";
     strokeColor = "white";
   });
+  
+  // detect which color that was clicked on in the dropdow
+  // the HEX color is declared as an attribute
   const color = document.querySelector('#colorDrop');
   color.addEventListener('click', (e) => {
     e.preventDefault();
